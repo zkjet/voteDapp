@@ -1,15 +1,24 @@
 # voteDapp
 
-* Create a voting dApp to cast votes, delegate and query results on chain
-* Request voting tokens to be minted using the API
-* Store a list of recent votes in the backend and display that on frontend
+- Create a voting dApp to cast votes, delegate and query results on chain
+- Request voting tokens to be minted using the API
+- Store a list of recent votes in the backend and display that on frontend
 
-## Setup ENV 
+## Setup & Installation:
 
 ```shell
-npm install dotenv --save
+npm install
+cd backend && npm install
+cd frontend && npm install
+```
+
+## Setup ENV
+
+```shell
 touch .env
 ```
+
+Add the following to your .env file
 
 ```shell
 MNEMONIC=""
@@ -19,6 +28,8 @@ INFURA_API_SECRET=""
 ALCHEMY_API_KEY=""
 ETHERSCAN_API_KEY=""
 ```
+
+To run the application:
 
 ## Backend NestJS
 
