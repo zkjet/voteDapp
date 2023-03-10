@@ -1,8 +1,22 @@
-# Sample Hardhat Project
+# voteDapp
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+* Create a voting dApp to cast votes, delegate and query results on chain
+* Request voting tokens to be minted using the API
+* Store a list of recent votes in the backend and display that on frontend
 
-Try running some of the following tasks:
+## Backend NestJS
+
+```shell
+cd backend && npm start run:dev
+```
+
+## Frontend ReactJS
+
+```shell
+cd frontend && npm start
+```
+
+## Hardhat
 
 ```shell
 npx hardhat help
