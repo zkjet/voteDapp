@@ -39,7 +39,7 @@ npx hardhat verify --network sepolia <0xcontractaddress>
 
 ![test](carbon.png)
 
-To run the application:
+To run the application manually:
 
 ## Backend NestJS
 
@@ -62,3 +62,11 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.ts
 ```
+
+To run the application automatically with one start script in base directory which will launch both backend and frontend:
+
+```shell
+npm start
+```
+
+![test](carbonnpmstart.png)
