@@ -5,6 +5,15 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,POST',
+    preflightContinue: false,
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+  };
+
+  app.enableCors(corsOptions);
+
   const config = new DocumentBuilder()
     .setTitle('Vote DApp API')
     .setDescription('API for Vote DApp Token and Ballot contracts')
