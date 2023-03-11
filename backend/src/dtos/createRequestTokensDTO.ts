@@ -1,5 +1,5 @@
 export class CreateRequestTokensDTO {
-    address: string;
+    to: string;
     amount: string;
     signature: string;   
 }
