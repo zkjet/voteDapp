@@ -37,7 +37,7 @@ npx hardhat run scripts/deploy.ts --network sepolia
 npx hardhat verify --network sepolia <0xcontractaddress>
 ```
 
-![test](carbon.png)
+![carbos](./assets/carbon.png)
 
 To run the application manually:
 
@@ -69,4 +69,8 @@ To run the application automatically with one start script in base directory whi
 npm start
 ```
 
-![test](carbonnpmstart.png)
+![carbonnpmstart](./assets/carbonnpmstart.png)
+
+## Contributors
+
+![contributors](./assets/contributors.png)
