@@ -56,5 +56,6 @@ npx hardhat run scripts/deploy.ts
 ## Deployment
 
 ```shell
-vercel
+cd backend && npm install && nest build && npm run start:prod
+cd frontend && npm install && npm run build && npx serve
 ```
