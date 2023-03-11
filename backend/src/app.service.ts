@@ -4,6 +4,7 @@ import { ethers } from 'ethers';
 import * as tokenJson from './assets/MyToken.json'
 
 const TOKEN_ADDRESS = "0x3592d257a5fe4111036873754CAF934276C66025";
+const MINT_AMOUNT = "10";
 
 @Injectable()
 export class AppService {
@@ -73,7 +74,7 @@ export class AppService {
       const deployer = deployerWallet.connect(this.provider);
       console.log(`deployer connected with: ${deployer.address}`);
 
-      const approveAmount = ethers.utils.parseEther(amount);
+      const approveAmount = ethers.utils.parseEther(MINT_AMOUNT);
       const approveResult = await this.tokenContract.connect(deployer).transfer(to, approveAmount);
       console.log(`approve result: ${JSON.stringify(approveResult.hash)}`);
       return approveResult.hash;
@@ -81,4 +82,3 @@ export class AppService {
     throw new Error("Signature verification failed");
   }
 }
- 
