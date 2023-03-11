@@ -29,16 +29,6 @@ ALCHEMY_API_KEY=""
 ETHERSCAN_API_KEY=""
 ```
 
-Verify your hardhat configuration and dotenv setup.
-In base directory deploy helloworld.sol contract on Sepolia
-
-```shell
-npx hardhat run scripts/deploy.ts --network sepolia
-npx hardhat verify --network sepolia <0xcontractaddress>
-```
-
-![test](carbon.png)
-
 To run the application:
 
 ## Backend NestJS
@@ -61,4 +51,11 @@ npx hardhat test
 REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.ts
+```
+
+## Deployment
+
+```shell
+cd backend && npm install && nest build && npm run start:prod
+cd frontend && npm install && npm run build && npx serve
 ```

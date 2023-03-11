@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "start:all": "concurrently --kill-others --names \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run start:dev --prefix ./backend\" \"npm start --prefix ./frontend\"",
+    "startprod:all": "concurrently --kill-others --names \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run start:dev --prefix ./backend\" \"npm start --prefix ./frontend\"",
+    "deployprod:all": "concurrently --kill-others --names \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run start:prod --prefix ./backend\" \"npm run build --prefix ./frontend\""
+  },
+  "name": "hardhat-project",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.13.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.2",
+    "dotenv": "^16.0.3"
+  }
+}
