@@ -1,4 +1,4 @@
-import { MyToken, MyToken__factory, Ballot__factory } from "./typechain-types";
+import { MyToken, MyToken__factory } from "../typechain-types";
 import { ethers, Wallet } from 'ethers';
 import * as dotenv from 'dotenv';
 dotenv.config();
