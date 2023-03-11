@@ -8,25 +8,25 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get("token/address")
-  getTokentAddress(): {address: string} {
+  getTokenAddress(): {address: string} {
     return {address: this.appService.getTokenAddress()};
   }
 
   @Get("token/supply")
-  async getTotalSupply(): Promise <number> {
-    return await this.appService.getTotalSupply();
+  async getTokenSupply(): Promise <number> {
+    return await this.appService.getTokenSupply();
   }
 
   @Post("token/approve")
-  async giveApproval(@Body() body: CreateRequestTokensDTO): Promise <boolean> {
-    return await this.appService.giveApproval(body.address, body.amount, body.signature);
+  async giveApproval(@Body() body: CreateRequestTokensDTO): Promise<{ approved: boolean }> {
+    return {approved: await this.appService.giveApproval(body.address, body.amount, body.signature) };
   }
 
   @Get("token/allowance")
-  async getAllowance(
+  async getTokenAllowance(
     @Query('from') from: string,
     @Query('to') to: string
     ): Promise <number> {
-    return await this.appService.getAllowance(from, to);
+    return await this.appService.getTokenAllowance(from, to);
   }
 }
