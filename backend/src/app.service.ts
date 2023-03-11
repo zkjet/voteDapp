@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ethers } from 'ethers';
-import * as tokenJson from './assets/MyToken.json'
+import * as tokenJson from './assets/MyToken.json';
 
 const TOKEN_ADDRESS = "0x3592d257a5fe4111036873754CAF934276C66025";
 const MINT_AMOUNT = "10";
