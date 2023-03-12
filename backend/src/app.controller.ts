@@ -47,5 +47,8 @@ export class AppController {
     return { winner: await this.appService.getBallotWinner() };
   }
 
-
+  @Get('ballot/votes')
+  getVotes(): Object {
+    return this.appService.getVotes();
+  }
 }

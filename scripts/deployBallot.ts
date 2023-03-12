@@ -1,10 +1,10 @@
 import { Ballot__factory } from "../typechain-types";
-import { ethers, Wallet } from 'ethers';
+import { ethers } from 'ethers';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const TOKEN_CONTRACT_ADDRESS = "0x3592d257a5fe4111036873754caf934276c66025";
-const TARGET_BLOCK_NUMBER = "3071878";
+const TOKEN_CONTRACT_ADDRESS = "0x3592d257a5fe4111036873754CAF934276C66025";
+const TARGET_BLOCK_NUMBER = "3076079";
 
 function convertStringArrayToBytes32(array: string[]) {
     const bytes32Array = [];
@@ -20,10 +20,10 @@ async function main () {
       const proposals = args.slice(2);
       if (proposals.length <= 0) throw new Error("Missing parameters: proposals");
 
-    // gets the goerli provider
+    //const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
     const provider = new ethers.providers.InfuraProvider("sepolia", process.env.INFURA_API_KEY);
 
-    const  pk = process.env.PRIVATE_KEY;
+    const  pk = process.env.PRIVATE_KEY_HARDEEP;
     if(!pk || pk.length <= 0) throw new Error("Missing environment: private key");
     const deployerWallet = new ethers.Wallet(pk);
     console.log(`Connected to deployer's wallet address: ${deployerWallet.address}`);

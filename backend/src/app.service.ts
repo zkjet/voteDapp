@@ -4,20 +4,33 @@ import { ethers } from 'ethers';
 import * as tokenJson from './assets/MyToken.json';
 import * as ballotJson from './assets/Ballot.json';
 
+// These are test contract - deployer is PRIVATE_KEY_HARDEEP
+// Fresh contracts will need to be deployed when ready for "go-live"
 const TOKEN_ADDRESS = "0x3592d257a5fe4111036873754CAF934276C66025";
-const BALLOT_ADDRESS = "0xb30471eF27937f1c08de87B71E793d141A6a7273";
+const BALLOT_ADDRESS = "0xB1637f1Dbc9c23218Ee1A5A534B45cC249444196";
 const MINT_AMOUNT = "10";
 
 @Injectable()
 export class AppService {
   provider: ethers.providers.Provider;
   tokenContract: ethers.Contract;  
-  ballotContract: ethers.Contract;    
+  ballotContract: ethers.Contract;   
+  votesMap = new Map(); 
 
   constructor(private config: ConfigService) {
     this.provider = ethers.getDefaultProvider('sepolia');
     this.tokenContract = new ethers.Contract(TOKEN_ADDRESS, tokenJson.abi, this.provider);
     this.ballotContract = new ethers.Contract(BALLOT_ADDRESS, ballotJson.abi, this.provider);
+
+    // Event listening and handling
+    this.ballotContract.on('voted', (_proposalName: string, _totalVotes: ethers.BigNumber, _voteReceived: ethers.BigNumber) => {
+      let proposalName = ethers.utils.parseBytes32String(_proposalName);
+      let totalVotes = parseFloat(ethers.utils.formatEther(_totalVotes));
+      let voteReceived = parseFloat(ethers.utils.formatEther(_voteReceived));
+
+      console.log(`proposalName ${proposalName} just recieved ${voteReceived} votes for a total of ${totalVotes} votes.`);
+      this.votesMap.set(proposalName, { totalVotes: totalVotes, voteReceived: voteReceived });
+    });
   }
 
   getTokenAddress(): string {
@@ -77,7 +90,7 @@ export class AppService {
       const deployer = deployerWallet.connect(this.provider);
       console.log(`deployer connected with: ${deployer.address}`);
 
-      const requestAmount = ethers.utils.parseEther(MINT_AMOUNT);
+      const requestAmount = ethers.utils.parseEther(amount);
       const requestResult = await this.tokenContract.connect(deployer).transfer(to, requestAmount);
       console.log(`approve result: ${JSON.stringify(requestResult.hash)}`);
       return requestResult.hash;
@@ -89,5 +102,17 @@ export class AppService {
     const winner = ethers.utils.parseBytes32String(await this.ballotContract.winnerName());
     console.log(`The winner is ${winner}!`)
     return winner;
+  }
+
+  getVotes(): Object {
+    return this.convertMapToObject(this.votesMap);
+  }
+
+  private convertMapToObject(map) {
+    let votesObj = Array.from(map).reduce((obj, [key, value]) => {
+      obj[key] = value;
+      return obj;
+    }, {});
+    return votesObj
   }
 }
