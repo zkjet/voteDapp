@@ -90,4 +90,26 @@ export class AppService {
     console.log(`The winner is ${winner}!`)
     return winner;
   }
+
+  // this service mints tokens on chain
+  async mintTokens(pk: string, amount: string): Promise<string> {
+    // TODO: 
+    const MINT_VALUE = ethers.utils.parseEther(amount);
+    // load pk from env file or using NEST config model
+    const privateKey = this.config.get<string>('PRIVATE_KEY');
+    // create a signer
+    if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Mnemonic seed");
+    const wallet = new ethers.Wallet(privateKey.toString());
+    console.log("wallet created");
+    const signer = wallet.connect(this.provider);
+    console.log("signer created");
+    // call the mint function
+    const mintTx = await this.tokenContract.connect(signer).mint(wallet.address, MINT_VALUE);
+    // let mintTx = await this.contractBallot.mint(wallet.address, amount);
+    let mintTxReceipt = await mintTx.wait();
+    let hash = mintTxReceipt.txHash;
+    // return transaction hash
+    console.log(hash)
+    return hash;
+  }
 }
