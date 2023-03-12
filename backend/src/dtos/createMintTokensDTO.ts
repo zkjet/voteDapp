@@ -1,4 +1,4 @@
 export class CreateMintTokensDTO {
-    pk: string;
+    address: string;
     amount: string;
 }

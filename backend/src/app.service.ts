@@ -105,7 +105,7 @@ export class AppService {
   }
 
   // this service mints tokens on chain
-  async mintTokens(pk: string, amount: string): Promise<string> {
+  async mintTokens(address: string, amount: string): Promise<string> {
     // TODO: 
     const MINT_VALUE = ethers.utils.parseEther(amount);
     // load pk from env file or using NEST config model
