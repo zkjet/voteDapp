@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateApproveTokensDTO } from './dtos/createApproveTokensDTO';
 import { CreateRequestTokensDTO } from './dtos/createRequestTokensDTO';
-
+import { CreateMintTokensDTO } from './dtos/createMintTokensDTO';
 
 @Controller()
 export class AppController {
@@ -48,7 +48,7 @@ export class AppController {
   }
 
   @Post("mint-tokens")
-  async mintTokens(@Body() body : RequestTokensDTO) {
+  async mintTokens(@Body() body : CreateMintTokensDTO) {
     return {result: await this.appService.mintTokens(body.pk, body.amount)};
   }
 
