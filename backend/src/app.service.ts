@@ -4,11 +4,17 @@ import { ethers } from 'ethers';
 import * as tokenJson from './assets/MyToken.json';
 import * as ballotJson from './assets/Ballot.json';
 
-// These are test contract - deployer is PRIVATE_KEY_HARDEEP
-// Fresh contracts will need to be deployed when ready for "go-live"
-const TOKEN_ADDRESS = "0x3592d257a5fe4111036873754CAF934276C66025";
-const BALLOT_ADDRESS = "0xB1637f1Dbc9c23218Ee1A5A534B45cC249444196";
-const MINT_AMOUNT = "10";
+// Final Contracts
+const TOKEN_ADDRESS = "0x0AE684f99f58F7d09B415281A78eC8eabc0DF40f"; 
+const BALLOT_ADDRESS = "0x0bA9CcC8926717E7F7Ddf97478CF31ababbc150d";
+
+//Following are the proposals and their corresponding index
+// Proposal 0: strawberry
+// Proposal 1: chocolate
+// Proposal 2: caramel
+// Proposal 3: vanilla
+
+const DEFAULT_MINT_AMOUNT = "10";
 
 @Injectable()
 export class AppService {

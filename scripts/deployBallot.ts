@@ -3,8 +3,8 @@ import { ethers } from 'ethers';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const TOKEN_CONTRACT_ADDRESS = "0x3592d257a5fe4111036873754CAF934276C66025";
-const TARGET_BLOCK_NUMBER = "3076079";
+const TOKEN_CONTRACT_ADDRESS = "0x0AE684f99f58F7d09B415281A78eC8eabc0DF40f";
+const TARGET_BLOCK_NUMBER = "3077100";
 
 function convertStringArrayToBytes32(array: string[]) {
     const bytes32Array = [];

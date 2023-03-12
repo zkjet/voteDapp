@@ -3,8 +3,8 @@ import { MyToken__factory } from "../typechain-types";
 require("dotenv").config();
 
 //const TOKEN_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-const TOKEN_CONTRACT_ADDRESS = "0x3592d257a5fe4111036873754CAF934276C66025";
-const MINT_VALUE = ethers.utils.parseEther("600");
+const TOKEN_CONTRACT_ADDRESS = "0x0AE684f99f58F7d09B415281A78eC8eabc0DF40f";
+const MINT_VALUE = ethers.utils.parseEther("1000");
 
 async function main() {
      //const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545/");
