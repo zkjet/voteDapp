@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 require("dotenv").config();
 
 async function main() {
-    const  pk = process.env.PRIVATE_KEY;
+    const  pk = process.env.PRIVATE_KEY_CHRIS;
     if(!pk || pk.length <= 0) throw new Error("Missing environment: private key");
     const signer = new ethers.Wallet(pk);
 
