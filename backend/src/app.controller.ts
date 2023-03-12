@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateApproveTokensDTO } from './dtos/createApproveTokensDTO';
 import { CreateRequestTokensDTO } from './dtos/createRequestTokensDTO';
-
+import { CreateMintTokensDTO } from './dtos/createMintTokensDTO';
 
 @Controller()
 export class AppController {
@@ -41,6 +41,11 @@ export class AppController {
   async requestTokens(@Body() body: CreateRequestTokensDTO): Promise<{ transfered: string }> {
     return { transfered: await this.appService.requestTokens(body.to, body.amount, body.signature) };
   }
+  
+  @Post("mint-tokens")
+  async mintTokens(@Body() body : CreateMintTokensDTO) {
+    return {result: await this.appService.mintTokens(body.pk, body.amount)};
+  }
 
   @Get("ballot/winner")
   async getBallotWinner(): Promise <{ winner: string }> {
@@ -50,5 +55,5 @@ export class AppController {
   @Get('ballot/votes')
   getVotes(): Object {
     return this.appService.getVotes();
-  }
+  } 
 }
