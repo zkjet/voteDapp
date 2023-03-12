@@ -1,12 +1,13 @@
-import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button } from "react-bootstrap";
+
+import React from "react";
 import Sync from "./components/Sync";
+import RequestToken from "./components/RequestToken";
 
 function App() {
     const [isConnected, setConnected] = React.useState(false);
-    const [, setSigner] = React.useState(undefined);
+    const [signer, setSigner] = React.useState(undefined);
 
     return (
         <>
@@ -17,20 +18,7 @@ function App() {
             <div style={{ maxWidth: 960, margin: "auto" }}>
                 {!isConnected ? null : (
                     <>
-                        <div className="container mb-5">
-                            <h2 className="mb-3">Request Tokens</h2>
-                            <div className="mb-3">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Amount (MTK)"
-                                    aria-label="Amount (MTK)"
-                                />
-                            </div>
-                            <Button className="m-1" variant="primary" onClick={() => alert("not implmented")}>
-                                Submit
-                            </Button>
-                        </div>
+                        <RequestToken signer={signer} />
                     </>
                 )}
             </div>

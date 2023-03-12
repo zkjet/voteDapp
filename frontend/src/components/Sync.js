@@ -57,7 +57,7 @@ export default function Sync({ setConnected, setSigner }) {
 
     // Get Gas Price (interval)
     React.useEffect(() => {
-        let gasPriceChecker;
+        let interval;
         if (!!library && account) {
             library.getBalance(account).then((balanceBN) => {
                 const balanceStr = ethers.utils.formatEther(balanceBN);
@@ -72,12 +72,12 @@ export default function Sync({ setConnected, setSigner }) {
             }
 
             checkGasPrice();
-            gasPriceChecker = setInterval(() => {
+            interval = setInterval(() => {
                 checkGasPrice();
             }, updateInterval);
         }
         return () => {
-            clearTimeout(gasPriceChecker);
+            clearTimeout(interval);
         };
     }, [account, library]);
 
@@ -97,6 +97,7 @@ export default function Sync({ setConnected, setSigner }) {
         }
     }, [account]);
 
+    // Get Total Token Supply
     React.useEffect(() => {
         if (account) {
             axios({
