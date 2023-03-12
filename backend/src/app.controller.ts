@@ -42,7 +42,7 @@ export class AppController {
     return { transfered: await this.appService.requestTokens(body.to, body.amount, body.signature) };
   }
   
-  @Post("mint/tokens")
+  @Post("token/mint")
   async mintTokens(@Body() body : CreateMintTokensDTO) {
     return {result: await this.appService.mintTokens(body.address, body.amount)};
   }
