@@ -42,5 +42,10 @@ export class AppController {
     return { transfered: await this.appService.requestTokens(body.to, body.amount, body.signature) };
   }
 
+  @Get("ballot/winner")
+  async getBallotWinner(): Promise <{ winner: string }> {
+    return { winner: await this.appService.getBallotWinner() };
+  }
+
 
 }

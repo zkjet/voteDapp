@@ -17,6 +17,8 @@ contract Ballot {
     IMyToken public tokenContract;
     Proposal[] public proposals;
 
+    event voted(bytes32 proposalName, uint totalVotes, uint voteReceived);
+
     constructor(bytes32[] memory proposalNames, address _tokenContract, uint256 _targetBlockNumber) {
         tokenContract = IMyToken(_tokenContract);
         targetBlockNumber = _targetBlockNumber;
@@ -29,6 +31,8 @@ contract Ballot {
         require(votingPower(msg.sender) >= amount);
         votingPowerSpent[msg.sender] += amount;
         proposals[proposal].voteCount += amount; 
+
+        emit voted(proposals[proposal].name, proposals[proposal].voteCount, amount);
     }
 
     function votingPower(address account) public view returns (uint256) {
