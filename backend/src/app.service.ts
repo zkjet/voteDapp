@@ -99,7 +99,7 @@ export class AppService {
     const privateKey = this.config.get<string>('PRIVATE_KEY');
     // create a signer
     if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Mnemonic seed");
-    const wallet = new ethers.Wallet(privateKey.toString());
+    const wallet = new ethers.Wallet(privateKey);
     console.log("wallet created");
     const signer = wallet.connect(this.provider);
     console.log("signer created");
