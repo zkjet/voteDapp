@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import Sync from "./components/Sync";
 import RequestToken from "./components/RequestToken";
+import DelegateToken from "./components/DelegateToken";
 
 function App() {
     const [isConnected, setConnected] = React.useState(false);
@@ -19,6 +20,7 @@ function App() {
                 {!isConnected ? null : (
                     <>
                         <RequestToken signer={signer} />
+                        <DelegateToken signer={signer} />
                     </>
                 )}
             </div>

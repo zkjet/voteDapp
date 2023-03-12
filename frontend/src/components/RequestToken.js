@@ -34,7 +34,7 @@ export default function RequestToken({ signer }) {
                 data: {
                     to: value[0],
                     signature: value[1],
-                    amount: parseFloat(amount),
+                    amount: amount,
                 },
             })
                 .then((resp) => alert(`Transfer complete: ${resp.data.transfered}`))

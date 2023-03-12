@@ -5,7 +5,8 @@ import * as tokenJson from './assets/MyToken.json';
 import * as ballotJson from './assets/Ballot.json';
 
 // Final Contracts
-const TOKEN_ADDRESS = "0x0AE684f99f58F7d09B415281A78eC8eabc0DF40f"; 
+//const TOKEN_ADDRESS = "0x0AE684f99f58F7d09B415281A78eC8eabc0DF40f"; 
+const TOKEN_ADDRESS = '0x3592d257a5fe4111036873754CAF934276C66025'
 const BALLOT_ADDRESS = "0x0bA9CcC8926717E7F7Ddf97478CF31ababbc150d";
 
 //Following are the proposals and their corresponding index
