@@ -1,21 +1,29 @@
 import "./App.css";
-import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import React from "react";
+import Sync from "./components/Sync";
+import RequestToken from "./components/RequestToken";
+
 function App() {
-  return (
-    <div className="App">
-      <h1>Vote dApp</h1>
-      <p>Vote Here</p>
-      <Button className="m-1">Sync</Button>
-      <Button className="m-1" variant="primary">
-        Vote
-      </Button>
-      <Button className="m-1" variant="danger">
-        Reset
-      </Button>
-    </div>
-  );
+    const [isConnected, setConnected] = React.useState(false);
+    const [signer, setSigner] = React.useState(undefined);
+
+    return (
+        <>
+            <div className="App mt-5">
+                <h1 className="p-3">Vote dApp</h1>
+                <Sync setConnected={setConnected} setSigner={setSigner} />
+            </div>
+            <div style={{ maxWidth: 960, margin: "auto" }}>
+                {!isConnected ? null : (
+                    <>
+                        <RequestToken signer={signer} />
+                    </>
+                )}
+            </div>
+        </>
+    );
 }
 
 export default App;
