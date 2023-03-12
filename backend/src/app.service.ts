@@ -2,8 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ethers } from 'ethers';
 import * as tokenJson from './assets/MyToken.json';
+import * as ballotJson from './assets/Ballot.json';
 
 const TOKEN_ADDRESS = "0x3592d257a5fe4111036873754CAF934276C66025";
+const BALLOT_ADDRESS = "0xb30471eF27937f1c08de87B71E793d141A6a7273";
 const MINT_AMOUNT = "10";
 
 @Injectable()
@@ -15,6 +17,7 @@ export class AppService {
   constructor(private config: ConfigService) {
     this.provider = ethers.getDefaultProvider('sepolia');
     this.tokenContract = new ethers.Contract(TOKEN_ADDRESS, tokenJson.abi, this.provider);
+    this.ballotContract = new ethers.Contract(BALLOT_ADDRESS, ballotJson.abi, this.provider);
   }
 
   getTokenAddress(): string {
@@ -46,10 +49,10 @@ export class AppService {
     if (address === pubKey) {
       console.log(`signature verified from address: ${address}`);
 
-      const pk = this.config.get<string>('PRIVATE_KEY');
-      if(!pk || pk.length <= 0) throw new Error("Missing environment: private key");
+      const privKey = this.config.get<string>('PRIVATE_KEY');
+      if(!privKey || privKey.length <= 0) throw new Error("Missing environment: private key");
 
-      const deployerWallet = new ethers.Wallet(pk);
+      const deployerWallet = new ethers.Wallet(privKey);
       const deployer = deployerWallet.connect(this.provider);
       console.log(`deployer connected with: ${deployer.address}`);
 
@@ -74,11 +77,17 @@ export class AppService {
       const deployer = deployerWallet.connect(this.provider);
       console.log(`deployer connected with: ${deployer.address}`);
 
-      const approveAmount = ethers.utils.parseEther(MINT_AMOUNT);
-      const approveResult = await this.tokenContract.connect(deployer).transfer(to, approveAmount);
-      console.log(`approve result: ${JSON.stringify(approveResult.hash)}`);
-      return approveResult.hash;
+      const requestAmount = ethers.utils.parseEther(MINT_AMOUNT);
+      const requestResult = await this.tokenContract.connect(deployer).transfer(to, requestAmount);
+      console.log(`approve result: ${JSON.stringify(requestResult.hash)}`);
+      return requestResult.hash;
     }
     throw new Error("Signature verification failed");
+  }
+
+  async getBallotWinner(): Promise<string> {
+    const winner = ethers.utils.parseBytes32String(await this.ballotContract.winnerName());
+    console.log(`The winner is ${winner}!`)
+    return winner;
   }
 }

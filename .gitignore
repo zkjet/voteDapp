@@ -23,3 +23,7 @@ artifacts
 
 # VSCode
 .vscode
+
+# Production Files
+/dist
+/build
