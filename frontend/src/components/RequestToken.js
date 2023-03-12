@@ -24,7 +24,7 @@ export default function RequestToken({ signer }) {
         }
 
         const getAddress = signer.getAddress();
-        const getSignature = signer.signMessage("TODO");
+        const getSignature = signer.signMessage("REQUEST");
 
         Promise.all([getAddress, getSignature]).then((value) => {
             axios({
@@ -32,7 +32,7 @@ export default function RequestToken({ signer }) {
                 url: `${API_BASE_URL}token/request`,
                 headers: { "Content-Type": "application/json" },
                 data: {
-                    address: value[0],
+                    to: value[0],
                     signature: value[1],
                     amount: parseFloat(amount),
                 },
