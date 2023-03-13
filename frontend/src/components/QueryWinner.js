@@ -19,7 +19,7 @@ export default function RequestToken({ signer }) {
             headers: { "Content-Type": "application/json" },
         })
         .then((resp) => 
-            alert(`Winning Proposal is ${resp.data.winner}!`)
+            alert(`Currently winning Proposal is ${resp.data.winner}!`)
         )
         .catch((error) => {
                 console.error(error);

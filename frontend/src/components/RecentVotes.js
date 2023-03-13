@@ -19,7 +19,7 @@ export default function RequestToken({ signer }) {
             headers: { "Content-Type": "application/json" },
         })
         .then((resp) => 
-            alert(`Recent Votes: ${JSON.stringify(resp.data)}!`)
+            alert(`Recent Votes: ${JSON.stringify(resp.data,null, 2)}`)
         )
         .catch((error) => {
                 console.error(error);

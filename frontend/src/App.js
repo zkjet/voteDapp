@@ -7,6 +7,7 @@ import RequestToken from "./components/RequestToken";
 import DelegateToken from "./components/DelegateToken";
 import QueryWinner from "./components/QueryWinner";
 import RecentVotes from "./components/RecentVotes";
+import Vote from "./components/Vote";
 
 function App() {
     const [isConnected, setConnected] = React.useState(false);
@@ -23,6 +24,7 @@ function App() {
                     <>
                         <RequestToken signer={signer} />
                         <DelegateToken signer={signer} />
+                        <Vote signer={signer} />
                         <QueryWinner signer={signer} />
                         <RecentVotes signer={signer} />
                     </>
