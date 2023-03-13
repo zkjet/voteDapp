@@ -52,20 +52,27 @@ export default function Mint({ signer }) {
     // );
     const parsedAmount = ethers.utils.parseEther(amount.toString()).toString();
     console.log(parsedAmount);
-    if (parsedAmount > 0) {
-        axios({
-            method: 'GET',
-            url: `${API_BASE_URL}token/mint?address=${address}&amount=${parsedAmount}`,
-            headers: { 'Content-Type': 'application/json' },
-          })
-            .then((resp) =>
-              alert(`Currently winning Proposal is ${resp.data}!`)
-            )
-            .catch((error) => {
-              console.error(error);
-              setErrorMessage(error.message);
-            });
-    }
+    console.log(amount);
+    console.log(address);
+    const response = await axios.post('http://localhost:3001/token/mint', {
+        address: address,
+        amount: amount
+    });
+    console.log(response);
+    // if (parsedAmount > 0) {
+    //     axios({
+    //         method: 'POST',
+    //         url: `${API_BASE_URL}token/mint?address=${address}&amount=${amount}`,
+    //         headers: { 'Content-Type': 'application/json' },
+    //       })
+    //         .then((resp) =>
+    //           alert(`Currently winning Proposal is ${resp.data}!`)
+    //         )
+    //         .catch((error) => {
+    //           console.error(error);
+    //           setErrorMessage(error.message);
+    //         });
+    // }
   }
   return (
     <>
