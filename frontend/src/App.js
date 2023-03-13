@@ -8,11 +8,11 @@ import DelegateToken from './components/DelegateToken';
 import QueryWinner from './components/QueryWinner';
 import RecentVotes from './components/RecentVotes';
 import Vote from './components/Vote';
+import Mint from './components/Mint';
 
 function App() {
   const [isConnected, setConnected] = React.useState(false);
   const [signer, setSigner] = React.useState(undefined);
-
 
   return (
     <>
@@ -31,7 +31,6 @@ function App() {
               <RecentVotes className='card' signer={signer} />
               <Mint className='card' signer={signer} />
             </div>
-          
         )}
       </div>
     </>
@@ -39,4 +38,3 @@ function App() {
 }
 
 export default App;
-
