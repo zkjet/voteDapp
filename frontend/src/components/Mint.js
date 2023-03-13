@@ -6,13 +6,14 @@ import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import ballotJson from '../assets/Ballot.json';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import { API_BASE_URL } from '../config/URLs';
 
-const API_URL_MINT = "http://localhost:3000/mint-tokens";
+const TOKEN_ADDRESS = '0x0AE684f99f58F7d09B415281A78eC8eabc0DF40f';
 
 export default function Mint({ signer }) {
   const [errorMessage, setErrorMessage] = React.useState(null);
   const [amount, setAmount] = React.useState(0);
-  const [address, setAddress] = React.useState(null);
+  const [address, setAddress] = React.useState("");
   const { active, account, chainId, error, library, activate } = useWeb3React();
 
   function handleAddressChange(event) {
@@ -21,7 +22,7 @@ export default function Mint({ signer }) {
       return;
     }
     setErrorMessage(null);
-    setAddress(event.target.value);
+    setAddress((event.target.value).toString());
   }
 
   function handleAmountChange(event) {
@@ -43,37 +44,34 @@ export default function Mint({ signer }) {
       setErrorMessage(`Please enter an amount`);
       return;
     }
-
-    const address = await signer.getAddress();
-    const tokenContract = await new ethers.Contract(
-      TOKEN_ADDRESS,
-      ballotJson.abi,
-      signer
-    );
-    const parsedAmount = ethers.utils.parseEther(amount.toString());
+    // const address = await signer.getAddress();
+    // const tokenContract = await new ethers.Contract(
+    //   TOKEN_ADDRESS,
+    //   tokenJson.abi,
+    //   signer
+    // );
+    const parsedAmount = ethers.utils.parseEther(amount.toString()).toString();
     console.log(parsedAmount);
     if (parsedAmount > 0) {
-      const mintTx = await tokenContract.mint(
-        propsal,
-        ethers.utils.parseEther(amount),
-        {gasLimit: 3e7}
-      );
-      const voteTxReceipt = await voteTx.wait();
-      alert(
-        `${address}'s ${votes} vote(s) for proposal ${propsal} is recorded in block ${voteTxReceipt.blockNumber}`
-      );
-      console.log(
-        `${address}'s ${votes} vote(s) for proposal ${propsal} is recorded in block ${voteTxReceipt.blockNumber}`
-      );
-    } else {
-      alert(`Votes value needs to be greater than 1`);
+        axios({
+            method: 'GET',
+            url: `${API_BASE_URL}token/mint?address=${address}&amount=${parsedAmount}`,
+            headers: { 'Content-Type': 'application/json' },
+          })
+            .then((resp) =>
+              alert(`Currently winning Proposal is ${resp.data}!`)
+            )
+            .catch((error) => {
+              console.error(error);
+              setErrorMessage(error.message);
+            });
     }
   }
   return (
     <>
       <Card>
         <Card.Body>
-          <Card.Title className='mb-3'>Vote</Card.Title>
+          <Card.Title className='mb-3'>Mint</Card.Title>
 
           <Card.Text className='mt-3'>
             Enter the address to mint to.
@@ -83,10 +81,10 @@ export default function Mint({ signer }) {
               aria-label='Votes'
               className='form-control'
               placeholder='Enter Address'
-              type='number'
-              min={0}
-              onInput={handleVoteChange}
-              value={votes}
+              type='string'
+            //   min={0}
+              onInput={handleAddressChange}
+              value={address}
             />
           </div>
           {errorMessage ? (
@@ -105,8 +103,8 @@ export default function Mint({ signer }) {
               placeholder='Enter Votes'
               type='number'
               min={0}
-              onInput={handleVoteChange}
-              value={votes}
+              onInput={handleAmountChange}
+              value={amount}
             />
           </div>
           {errorMessage ? (
