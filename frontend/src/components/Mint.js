@@ -6,26 +6,26 @@ import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import ballotJson from '../assets/Ballot.json';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import { API_BASE_URL } from '../config/URLs';
 
-const BALLOT_ADDRESS = '0x0bA9CcC8926717E7F7Ddf97478CF31ababbc150d';
+const TOKEN_ADDRESS = '0x0AE684f99f58F7d09B415281A78eC8eabc0DF40f';
 
-export default function DelegateToken({ signer }) {
+export default function Mint({ signer }) {
   const [errorMessage, setErrorMessage] = React.useState(null);
-  const [votes, setVotes] = React.useState(0);
-  const [propsal, setPropsal] = React.useState(null);
-  const { active, account, chainId, error, library, activate } = useWeb3React();
+  const [amount, setAmount] = React.useState(0);
+  const [address, setAddress] = React.useState("");
 
-  function handleProposalChange(event) {
-    if (event.target.value === 'Select to place your vote') {
-      setErrorMessage(`Please make a selection`);
+  function handleAddressChange(event) {
+    if (event.target.value === 'Input address for mint') {
+      setErrorMessage(`Please input address`);
       return;
     }
     setErrorMessage(null);
-    setPropsal(event.target.value);
+    setAddress((event.target.value).toString());
   }
 
-  function handleVoteChange(event) {
-    setVotes(event.target.value);
+  function handleAmountChange(event) {
+    setAmount(event.target.value);
   }
 
   async function handleSubmit() {
@@ -34,68 +34,61 @@ export default function DelegateToken({ signer }) {
       return;
     }
 
-    if (isNaN(votes)) {
-      setErrorMessage(`Please make a selection`);
+    if (isNaN(address)) {
+      setErrorMessage(`Please enter an address`);
       return;
     }
 
-    if (isNaN(propsal)) {
-      setErrorMessage(`${propsal} is not a number`);
+    if (isNaN(amount)) {
+      setErrorMessage(`Please enter an amount`);
       return;
     }
-
-    const address = await signer.getAddress();
-    const ballotContract = await new ethers.Contract(
-      BALLOT_ADDRESS,
-      ballotJson.abi,
-      signer
-    );
-    const parsedVotes = ethers.utils.parseEther(votes.toString());
-    console.log(parsedVotes);
-    if (parsedVotes > 0) {
-      const voteTx = await ballotContract.vote(
-        propsal,
-        ethers.utils.parseEther(votes),
-        {gasLimit: 3e7}
-      );
-      const voteTxReceipt = await voteTx.wait();
-      alert(
-        `${address}'s ${votes} vote(s) for proposal ${propsal} is recorded in block ${voteTxReceipt.blockNumber}`
-      );
-      console.log(
-        `${address}'s ${votes} vote(s) for proposal ${propsal} is recorded in block ${voteTxReceipt.blockNumber}`
-      );
-    } else {
-      alert(`Votes value needs to be greater than 1`);
-    }
+    console.log(amount);
+    console.log(address);
+    const response = await axios.post(`${API_BASE_URL}token/mint`, {
+        address: address,
+        amount: amount
+    });
+    console.log(response);
   }
   return (
     <>
       <Card>
         <Card.Body>
-          <Card.Title className='mb-3'>Vote</Card.Title>
-          <Form.Select
-            onChange={handleProposalChange}
-            aria-label='Default select example'
-          >
-            <option>Select to place your vote</option>
-            <option value={0}>Strawberry</option>
-            <option value={1}>Chocolate</option>
-            <option value={2}>Caramel</option>
-          </Form.Select>
+          <Card.Title className='mb-3'>Mint</Card.Title>
 
           <Card.Text className='mt-3'>
-            Enter the amount of votes to apply to the proposal.
+            Enter the address to mint to.
           </Card.Text>
           <div className='mb-3'>
             <input
               aria-label='Votes'
               className='form-control'
-              placeholder='Enter Votes'
+              placeholder='Enter Address'
+              type='string'
+            //   min={0}
+              onInput={handleAddressChange}
+              value={address}
+            />
+          </div>
+          {errorMessage ? (
+            <div className='alert alert-danger' role='alert'>
+              {errorMessage}
+            </div>
+          ) : null}
+
+          <Card.Text className='mt-3'>
+            Enter the amount of tokens to mint.
+          </Card.Text>
+          <div className='mb-3'>
+            <input
+              aria-label='Amount'
+              className='form-control'
+              placeholder='Enter Token Amount'
               type='number'
               min={0}
-              onInput={handleVoteChange}
-              value={votes}
+              onInput={handleAmountChange}
+              value={amount}
             />
           </div>
           {errorMessage ? (
