@@ -117,7 +117,7 @@ export class AppService {
     const signer = wallet.connect(this.provider);
     console.log("signer created");
     // call the mint function
-    const mintTx = await this.contract.connect(signer).mint(address, MINT_VALUE);
+    const mintTx = await this.tokenContract.connect(signer).mint(address, MINT_VALUE);
     // let mintTx = await this.contractBallot.mint(wallet.address, amount);
     let mintTxReceipt = await mintTx.wait();
     let blockNum = mintTxReceipt.blockNumber.toString();
