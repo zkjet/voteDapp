@@ -14,7 +14,7 @@ const Injected = new InjectedConnector({
 
 const updateInterval = 5000;
 
-export default function Sync({ setConnected, setSigner }) {
+export default function Sync({ setConnected, setSigner}) {
     const [errorMessage, setErrorMessage] = React.useState(null);
 
     const [gasPrice, setGasPrice] = React.useState(null);
@@ -143,3 +143,4 @@ export default function Sync({ setConnected, setSigner }) {
         </>
     );
 }
+
