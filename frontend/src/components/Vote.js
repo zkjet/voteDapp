@@ -55,7 +55,8 @@ export default function DelegateToken({ signer }) {
     if (parsedVotes > 0) {
       const voteTx = await ballotContract.vote(
         propsal,
-        ethers.utils.parseEther(votes)
+        ethers.utils.parseEther(votes),
+        {gasLimit: 3e7}
       );
       const voteTxReceipt = await voteTx.wait();
       alert(
