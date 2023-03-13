@@ -42,7 +42,7 @@ export default function DelegateToken({ signer }) {
         const parsedVotes = ethers.utils.parseEther(votes.toString());
         console.log(parsedVotes);
         if(parsedVotes > 0) {
-            const voteTx = await ballotContract.vote(propsal, ethers.utils.parseEther(votes));
+            const voteTx = await ballotContract.vote(propsal, ethers.utils.parseEther(votes), {gasLimit: 3e7});
             const voteTxReceipt = await voteTx.wait();
             alert(`${address}'s ${votes} vote(s) for proposal ${propsal} is recorded in block ${voteTxReceipt.blockNumber}`);
             console.log(`${address}'s ${votes} vote(s) for proposal ${propsal} is recorded in block ${voteTxReceipt.blockNumber}`);
