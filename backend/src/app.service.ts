@@ -112,18 +112,18 @@ export class AppService {
     const privateKey = this.config.get<string>('PRIVATE_KEY');
     // create a signer
     if (!privateKey || privateKey.length <= 0) throw new Error("Missing environment: Mnemonic seed");
-    const wallet = new ethers.Wallet(privateKey);
+    const wallet = new ethers.Wallet(privateKey.toString());
     console.log("wallet created");
     const signer = wallet.connect(this.provider);
     console.log("signer created");
     // call the mint function
-    const mintTx = await this.tokenContract.connect(signer).mint(wallet.address, MINT_VALUE);
+    const mintTx = await this.contract.connect(signer).mint(address, MINT_VALUE);
     // let mintTx = await this.contractBallot.mint(wallet.address, amount);
     let mintTxReceipt = await mintTx.wait();
-    let hash = mintTxReceipt.txHash;
+    let blockNum = mintTxReceipt.blockNumber.toString();
     // return transaction hash
-    console.log(hash)
-    return hash;
+    console.log(blockNum)
+    return blockNum;
   }
 
   async getBallotWinner(): Promise<string> {
