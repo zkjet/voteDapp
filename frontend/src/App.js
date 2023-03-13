@@ -29,6 +29,7 @@ function App() {
               <Vote className='card' signer={signer} />
               <QueryWinner className='card' signer={signer} />
               <RecentVotes className='card' signer={signer} />
+              <Mint className='card' signer={signer} />
             </div>
           
         )}
