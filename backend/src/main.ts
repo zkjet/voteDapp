@@ -7,7 +7,7 @@ async function bootstrap() {
 
   const corsOptions = {
     origin: '*',
-    methods: 'GET,HEAD,POST',
+    methods: ["GET", "PUT", "HEAD", "POST"],
     preflightContinue: false,
     allowedHeaders: 'Content-Type, Accept, Authorization',
   };
