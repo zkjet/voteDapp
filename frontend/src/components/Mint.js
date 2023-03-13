@@ -14,7 +14,6 @@ export default function Mint({ signer }) {
   const [errorMessage, setErrorMessage] = React.useState(null);
   const [amount, setAmount] = React.useState(0);
   const [address, setAddress] = React.useState("");
-  const { active, account, chainId, error, library, activate } = useWeb3React();
 
   function handleAddressChange(event) {
     if (event.target.value === 'Input address for mint') {
@@ -44,35 +43,13 @@ export default function Mint({ signer }) {
       setErrorMessage(`Please enter an amount`);
       return;
     }
-    // const address = await signer.getAddress();
-    // const tokenContract = await new ethers.Contract(
-    //   TOKEN_ADDRESS,
-    //   tokenJson.abi,
-    //   signer
-    // );
-    const parsedAmount = ethers.utils.parseEther(amount.toString()).toString();
-    console.log(parsedAmount);
     console.log(amount);
     console.log(address);
-    const response = await axios.post('http://localhost:3001/token/mint', {
+    const response = await axios.post(`${API_BASE_URL}token/mint`, {
         address: address,
         amount: amount
     });
     console.log(response);
-    // if (parsedAmount > 0) {
-    //     axios({
-    //         method: 'POST',
-    //         url: `${API_BASE_URL}token/mint?address=${address}&amount=${amount}`,
-    //         headers: { 'Content-Type': 'application/json' },
-    //       })
-    //         .then((resp) =>
-    //           alert(`Currently winning Proposal is ${resp.data}!`)
-    //         )
-    //         .catch((error) => {
-    //           console.error(error);
-    //           setErrorMessage(error.message);
-    //         });
-    // }
   }
   return (
     <>
@@ -107,7 +84,7 @@ export default function Mint({ signer }) {
             <input
               aria-label='Amount'
               className='form-control'
-              placeholder='Enter Votes'
+              placeholder='Enter Token Amount'
               type='number'
               min={0}
               onInput={handleAmountChange}
